@@ -1,0 +1,67 @@
+<nav class="navbar navbar-dark navbar-expand-md bg-dark" ng-controller="navbarController">
+	<div class="d-flex">
+		<a class="navbar-brand custom-nav-link d-flex flex-wrap align-content-center" data-toggle="tooltip" aria-hidden="true" title="Home page" href="/">
+			<i class="fa fa-home nav-icon"></i>
+		</a>
+		<div class="dropdown">
+			<button class="dropdown-toggle custom-dropdown-toggle btn btn-success rounded-0" type="button" onmouseover="buttonDown()" onmouseleave="buttonUp()">Catalog</button>
+			<div class="menu" onmouseover="menuDown()" onmouseleave="menuUp()">
+				<div class="menu-item border px-2" ng-repeat="category in categories">
+					<h4>{{ category.name }}</h4>
+					<ul ng-if="category.subcategories.length > 0">
+						<li ng-repeat="subcategory in category.subcategories">
+							<a href="/products?category={{ subcategory.id }}" class="menu-link font-italic">{{ subcategory.name }}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="collapsibleNavbar">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link custom-nav-link" href="#">Contacts</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link custom-nav-link" href="#">Delivery</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link custom-nav-link" href="#">Warranty</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link custom-nav-link" href="#">Credit</a>
+			</li>
+		</ul>
+		<ul class="navbar-nav">
+			<li class="nav-item" ng-show="!isAdmin">
+				<a class="nav-link custom-nav-link" data-toggle="tooltip" title="Shopping cart" href="/basket">
+					<i class="fas fa-shopping-cart nav-icon"></i>
+					<div id="shopping-cart-amount" ng-show="showBasketAmount.visibility"></div>
+				</a>
+			</li>
+			<li class="nav-item" ng-show="!isLoggedIn">
+				<a class="nav-link custom-nav-link" data-toggle="tooltip" title="Sign in" href="#" ng-click="toLoginPage()">
+					<i class="fas fa-sign-in-alt nav-icon"></i>
+				</a>
+			</li>
+			<li class="nav-item" ng-show="!isLoggedIn">
+				<a class="nav-link custom-nav-link" data-toggle="tooltip" title="Sign up" href="#" ng-click="toSignUpPage()">
+					<i class="fas fa-user-plus nav-icon"></i>
+				</a>
+			</li>
+			<li class="nav-item" ng-show="isLoggedIn">
+				<a class="nav-link custom-nav-link" data-toggle="tooltip" title="Account" href="/account" >
+					<i class="fas fa-user nav-icon"></i>
+				</a>
+			</li>
+			<li class="nav-item" ng-show="isLoggedIn">
+				<a class="nav-link custom-nav-link" data-toggle="tooltip" title="Sign out" href="#" ng-click="signOut()">
+					<i class="fas fa-sign-out-alt nav-icon"></i>
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>

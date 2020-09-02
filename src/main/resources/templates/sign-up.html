@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign-up</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="scripts/angular.min.js"></script>
+	<script src="scripts/angular-cookies.min.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/popper.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/menu.js"></script>
+	<script src="scripts/script.js"></script>
+</head>
+<body ng-app="appliances">
+	<div ng-include="'navbar'"></div>
+	<div class="container sign-up-container" ng-controller="authController">
+		<div class="d-flex flex-column">
+			<h2 class="font-italic">Registration of new account</h2>
+			<form autocomplete="off" ng-submit="signUp()">
+			
+				<div class="form-group">
+					<label for="last-name">Enter your last name *</label>
+					<input class="form-control" id="last-name" type="text" required ng-model="lastName">
+					<span class="text-danger font-italic" ng-show="showLastNameMessage">{{ lastNameMessage }}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="first-name">Enter your first name *</label>
+					<input class="form-control" id="first-name" type="text" required ng-model="firstName">
+					<span class="text-danger font-italic" ng-show="showFirstNameMessage">{{ firstNameMessage }}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="middle-name">Enter your middle name</label>
+					<input class="form-control" id="middle-name" type="text" ng-model="middleName">
+					<span class="text-danger font-italic" ng-show="showMiddleNameMessage">{{ middleNameMessage }}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="phone">Enter your phone *</label>
+					<input class="form-control" id="phone" type="tel" required ng-model="phone">
+					<span class="text-danger font-italic" ng-show="showPhoneMessage">{{ phoneMessage }}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="email">Enter your email *</label>
+					<input class="form-control" id="email" type="email" required ng-model="email">
+					<span class="text-danger font-italic" ng-show="showEmailMessage">{{ emailMessage }}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="password">Create a password *</label>
+					<input class="form-control" id="password" type="password" required ng-model="password">
+					<span class="text-danger font-italic" ng-show="showPasswordMessage">{{ passwordMessage }}</span>
+				</div>
+				
+				<div class="form-group">
+					<label for="password-replay">Replay the password *</label>
+					<input class="form-control" id="password-replay" type="password" required ng-model="passwordReplay">
+					<span class="text-danger font-italic" ng-show="showPasswordReplayMessage">Passwords do not match!</span>
+				</div>
+				
+				<button class="btn btn-primary btn-block" type="submit">Register</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

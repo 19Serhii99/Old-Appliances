@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Orders</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="scripts/angular.min.js"></script>
+	<script src="scripts/angular-cookies.min.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/popper.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/menu.js"></script>
+	<script src="scripts/script.js"></script>
+</head>
+<body ng-app="appliances">
+	<div ng-include="'navbar'"></div>
+	
+	<div class="row" ng-controller="orderController">
+		<div class="col-lg-2">
+			<div class="d-flex flex-column p-3 justify-content-center">
+				<h3 class="text-center">
+					<i class="fas fa-filter"></i>
+					Filter
+				</h3><br>
+				
+				<h5><i class="fas fa-industry"></i>&nbsp;Status code</h5>
+				<select class="form-control" ng-model="statusCode" ng-change="statusCodeChanged()">
+					<option ng-repeat="status in statuses">{{ status.name }}</option>
+				</select><br>
+				
+				<h5><i class="fas fa-calendar-alt"></i>&nbsp;Date</h5>
+				<span>From</span>
+				<input class="form-control" type="date" ng-model="dateFrom">
+				<span>To</span>
+				<input class="form-control" type="date" ng-model="dateTo"><br>
+				<div class="d-flex justify-content-between">
+					<button class="btn btn-danger" ng-click="resetDate()">Reset</button>
+					&nbsp;
+					<button class="btn btn-success" ng-click="applyDate()">Apply</button>
+				</div><br>
+				
+				<button class="btn btn-danger" ng-click="resetFilter()">Reset filter</button>
+			</div>
+		</div>
+		<div class="col-lg-10">
+			<div class="container" style="max-width: 1600px">
+				<div class="d-flex flex-column">
+					<h2 class="font-italic">Orders</h2>
+					<table class="w-100 table-order text-center">
+						<tbody>
+							<tr class="table-row-first">
+								<td class="p-3 order-first-row-border order-first-row-left-border">Order ID</td>
+								<td class="p-3 order-first-row-border">Full name</td>
+								<td class="p-3 order-first-row-border">Status code</td>
+								<td class="p-3 order-first-row-border">Total</td>
+								<td class="p-3 order-first-row-border">Date</td>
+								<td class="p-3 order-first-row-border"></td>
+							</tr>
+							<tr class="table-row" ng-repeat="order in orders">
+								<td class="p-3 order-row-border">{{ order.id }}</td>
+								<td class="p-3 order-row-border">{{ order.lastName + " " + order.firstName }}</td>
+								<td class="p-3 order-row-border">{{ order.status.name }}</td>
+								<td class="p-3 order-row-border">{{ order.total | currency }}</td>
+								<td class="p-3 order-row-border">{{ order.creationTime }}</td>
+								<td class="p-3 order-row-border order-row-right-border text-center">
+									<div ng-if="order.status.name == 'New'">
+										<a href="#" ng-click="changeStatus(order.id, 0)">Process</a> /
+										<a href="#" ng-click="changeStatus(order.id, 1)">Cancel</a>
+									</div>
+									<a href="#" ng-if="order.status.name == 'Being processed'" ng-click="changeStatus(order.id, 2)">Complete</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Account</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="scripts/angular.min.js"></script>
+	<script src="scripts/angular-cookies.min.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/popper.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/menu.js"></script>
+	<script src="scripts/script.js"></script>
+</head>
+<body ng-app="appliances">
+	<div ng-include="'navbar'"></div>
+		<div class="container" style="max-width: 900px" ng-controller="orderController">
+			<div class="d-flex flex-column">
+				<h2 class="font-italic">Order № {{ order.id }}</h2>
+				
+				<div class="form-group">
+					<label id="for"></label>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

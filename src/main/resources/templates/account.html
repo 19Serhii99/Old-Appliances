@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Account</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="scripts/angular.min.js"></script>
+	<script src="scripts/angular-cookies.min.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/popper.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/menu.js"></script>
+	<script src="scripts/script.js"></script>
+</head>
+<body ng-app="appliances">
+	<div ng-include="'navbar'"></div>
+	<div class="container" style="max-width: 900px" ng-controller="accountController">
+		<div class="d-flex flex-column">
+			<h2 class="font-italic">Account settings</h2>
+			
+			<div class="d-flex">
+				<a class="font-italic px-2 ml-auto" href="/orders" ng-if="isAdmin">
+					<h4>
+						<span>Orders</span>
+						<i class="fas fa-location-arrow"></i>
+					</h4>
+				</a>
+			</div>
+			<form id="account" autocomplete="off" ng-submit="saveData()">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="last-name">Last name *</label>
+							<input class="form-control" id="last-name" type="text" ng-model="user.lastName">
+							<span class="text-danger font-italic" ng-show="showLastNameMessage">{{ lastNameMessage }}</span>
+						</div>
+						<div class="form-group">
+							<label for="first-name">First name *</label>
+							<input class="form-control" id="first-name" type="text" ng-model="user.firstName">
+							<span class="text-danger font-italic" ng-show="showFirstNameMessage">{{ firstNameMessage }}</span>
+						</div>
+						<div class="form-group">
+							<label for="middle-name">Middle name</label>
+							<input class="form-control" id="middle-name" type="text" ng-model="user.middleName">
+							<span class="text-danger font-italic" ng-show="showMiddleNameMessage">{{ middleNameMessage }}</span>
+						</div>
+						<div class="form-group">
+							<label for="phone">Phone *</label>
+							<input class="form-control" id="phone" type="tel" ng-model="user.phone">
+							<span class="text-danger font-italic" ng-show="showPhoneMessage">{{ phoneMessage }}</span>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="email">Email *</label>
+							<input class="form-control" id="email" type="email" ng-model="user.email" autocomplete="off">
+							<span class="text-danger font-italic" ng-show="showEmailMessage">{{ emailMessage }}</span>
+						</div>
+						<div class="form-group" ng-if="isUser">
+							<label for="city">City</label>
+							<input class="form-control" id="city" type="text" ng-model="user.city">
+							<span class="text-danger font-italic" ng-show="showCityMessage">{{ cityMessage }}</span>
+						</div>
+						<div class="form-group" ng-if="isUser">
+							<label for="birthday">Birthday</label>
+							<input class="form-control" id="birthday" type="date" ng-model="user.birthday">
+							<span class="text-danger font-italic" ng-show="showBirthdayMessage">Incorrect birthday</span>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="d-flex flex-column">
+							<p class="text-success font-italic" ng-show="dataSaved">Data has been saved</p>
+							<input class="btn btn-success btn-block" type="submit" value="Save">
+						</div>
+					</div>
+				</div>
+			</form>
+			<hr>
+			<p>Change password</p>
+			<form autocomplete="off" ng-submit="savePassword()">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="new-password">New password *</label>
+							<input class="form-control" id="new-password" type="password" ng-model="newPassword" autocomplete="new-password">
+						</div>
+						<div class="form-group">
+							<label for="repeat-password">Repeat password *</label>
+							<input class="form-control" id="repeat-password" type="password" ng-model="repeatPassword" autocomplete="new-password">
+						</div>
+						<div class="d-flex flex-column">
+							<p class="text-danger font-italic" ng-show="showPasswordErrorMessage">{{ passwordErrorMessage }}</p>
+							<p class="text-success font-italic" ng-show="passwordSaved">Password has been saved</p>
+							<input class="btn btn-success btn-block" type="submit" value="Save">
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

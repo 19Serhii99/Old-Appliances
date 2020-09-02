@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Countries</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="scripts/angular.min.js"></script>
+	<script src="scripts/angular-cookies.min.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/popper.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/menu.js"></script>
+	<script src="scripts/script.js"></script>
+</head>
+<body ng-app="appliances">
+	<div ng-include="'navbar'"></div>
+	<div class="container" ng-controller="countriesController">
+	
+		<div class="d-flex justify-content-end">
+			<a class="font-italic px-2" href="#">
+				<h4>
+					<span>Categories</span>
+					<i class="fas fa-location-arrow"></i>
+				</h4>
+			</a>
+			<a class="font-italic px-2" href="/brands">
+				<h4>
+					<span>Brands</span>
+					<i class="fas fa-location-arrow"></i>
+				</h4>
+			</a>
+			<a class="font-italic px-2" href="/add-product">
+				<h4>
+					<span>Create product</span>
+					<i class="fas fa-location-arrow"></i>
+				</h4>
+			</a>
+		</div>
+	
+		<div class="d-flex">
+			<h2 class="font-italic">Countries</h2>
+			<div class="ml-auto font-italic" style="margin-top:10px;">
+				<i class="fas fa-exclamation-circle text-warning warning-icon"></i>
+				<span>&nbsp;If any country includes at least one brand, It cannot be removed!</span>
+			</div>
+		</div>
+		
+		<table class="table-catalogue">
+			<tbody>
+			
+				<tr>
+					<th>№</th>
+					<th>Name</th>
+					<th>Status</th>
+					<th></th>
+					<th></th>
+				</tr>
+				
+				<tr ng-repeat="country in countries">
+				
+					<td>{{ $index + 1 }}</td>
+					
+					<td>
+						<input class="table-input" type="text" ng-model="country.name" ng-change="countryChanged($index)">
+					</td>
+					
+					<td ng-if="country.saved">
+						<i class="fas fa-check text-success table-icon" data-toggle="tooltip" title="Saved"></i>
+					</td>
+					
+					<td ng-if="!country.saved">
+						<i class="fas fa-minus-circle table-icon text-danger" data-toggle="tooltip" title="Unsaved"></i>
+					</td>
+					
+					<td>
+						<i class="fas fa-save table-icon text-primary" data-toggle="tooltip" title="Save" ng-click="saveCountry($index)"></i>
+					</td>
+					
+					<td>
+						<i class="fas fa-trash table-icon text-danger" data-toggle="tooltip" title="Remove" ng-click="removeCountry($index)"></i>
+					</td>
+					
+				</tr>
+				
+			</tbody>
+		</table>
+		
+		<div ng-include="'error'"></div>
+	</div>
+</body>

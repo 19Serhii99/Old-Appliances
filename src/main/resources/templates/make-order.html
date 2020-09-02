@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New order</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="scripts/angular.min.js"></script>
+	<script src="scripts/angular-cookies.min.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/popper.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/menu.js"></script>
+	<script src="scripts/script.js"></script>
+</head>
+<body ng-app="appliances">
+	<div ng-include="'navbar'"></div>
+	<div class="container" ng-controller="makeOrderController">
+		<div class="d-flex flex-column">
+			<h2 class="font-italic">New order</h2>
+			<form autocomplete="off" ng-submit="makeOrder()">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<label for="last-name">Enter your last name *</label>
+							<input class="form-control" id="last-name" type="text" required ng-model="user.lastName" ng-change="lastNameChanged()">
+							<span class="text-danger font-italic" ng-show="showLastNameMessage">{{ lastNameMessage }}</span>
+						</div>
+						
+						<div class="form-group">
+							<label for="first-name">Enter your first name *</label>
+							<input class="form-control" id="first-name" type="text" required ng-model="user.firstName" ng-change="firstNameChanged()">
+							<span class="text-danger font-italic" ng-show="showFirstNameMessage">{{ firstNameMessage }}</span>
+						</div>
+						
+						<div class="form-group">
+							<label for="middle-name">Enter your middle name</label>
+							<input class="form-control" id="middle-name" type="text" ng-model="user.middleName" ng-change="middleNameChanged()">
+							<span class="text-danger font-italic" ng-show="showMiddleNameMessage">{{ middleNameMessage }}</span>
+						</div>
+						
+						<div class="form-group">
+							<label for="phone">Enter your phone *</label>
+							<input class="form-control" id="phone" type="tel" required ng-model="user.phone" ng-change="phoneChanged()">
+							<span class="text-danger font-italic" ng-show="showPhoneMessage">{{ phoneMessage }}</span>
+						</div>
+						
+						<div class="form-group">
+							<label for="city">Enter city *</label>
+							<input class="form-control" id="city" type="text" required ng-model="user.city" ng-change="cityChanged()">
+							<span class="text-danger font-italic" ng-show="showCityMessage">{{ cityMessage }}</span>
+						</div>
+						
+						<div class="form-group">
+							<label for="post-office">Enter post office number *</label>
+							<input class="form-control" id="post-office" type="text" pattern="[0-9]*" required ng-model="postOffice" ng-change="postOfficeChanged()">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<br>
+						<div class="d-flex flex-column border basket-briefing">
+							<div class="p-3">
+								<p>Your shopping cart contains {{ productAmount }}
+									<span ng-if="productAmount == 1">product</span>
+									<span ng-if="productAmount > 1">products</span>
+								</p>
+								<p>Order cost: {{ orderCost | currency}}</p>
+								<p>Order delivery cost: {{ 50 | currency}}</p>
+								<p><b>Total to pay: {{ orderCost + 50 | currency}}</b></p>
+								<a class="btn btn-success btn-block text-white" href="/basket">Shopping cart</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<br>
+				<input class="btn btn-success btn-block" type="submit" value="Confirm order">
+			</form>
+		</div>
+		
+		<div class="modal fade" id="warning-message" data-backdrop="static">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+				
+					<div class="modal-header">
+						<h4> Order information</h4>
+					</div>
+				
+					<div class="modal-body">
+						<p>Order <b>№ {{ orderNumber }}</b> has been successfully created. Our managers will contact you in the nearest time.</p>
+						<div class="d-flex justify-content-center">
+							<button class="btn btn-success" ng-click="gotIt()">Got it</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

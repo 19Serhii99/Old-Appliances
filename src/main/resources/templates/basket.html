@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Brands</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="scripts/angular.min.js"></script>
+	<script src="scripts/angular-cookies.min.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/popper.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/menu.js"></script>
+	<script src="scripts/script.js"></script>
+</head>
+<body ng-app="appliances">
+	<div ng-include="'navbar'"></div>
+	<div class="container" ng-controller="basketController">
+		<h1 class="font-italic">Shopping cart</h1>
+		<div class="d-flex flex-column" ng-if="basket.items.length > 0">
+			<table>
+				<tr>
+					<td class="border text-center">Product name</td>
+					<td class="border text-center">Price($)</td>
+					<td class="border text-center">Amount</td>
+					<td class="border"></td>
+					<td class="border"></td>
+					<td class="border"></td>
+				</tr>
+				<tr ng-repeat="item in basket.items">
+					<td class="border"><a class="w-50 px-2" href="/product?id={{item.product.id}}">{{ item.product.name }}</a></td>
+					<td class="border"><span class="px-2">{{ item.product.price | currency }}</span></td>
+					<td class="border text-center"><span class="px-2">{{ item.amount }}</span></td>
+					<td class="border text-center"><i class="fas fa-plus table-icon text-primary px-2" data-toggle="tooltip" title="Increase" ng-click="increase(item.product.id, $index)"></i></td>
+					<td class="border text-center"><i class="fas fa-minus table-icon text-danger px-2" data-toggle="tooltip" title="Decrease" ng-click="decrease(item.product.id, $index)"></i></td>
+					<td class="border text-center"><i class="fas fa-trash table-icon text-danger px-2" data-toggle="tooltip" title="Remove" ng-click="remove(item.product.id, $index)"></i></td>
+				</tr>
+			</table>
+			
+			<br>
+			<h3>Total to pay: {{ basket.sum | currency }}</h3>
+			<br>
+			
+			<button class="btn btn-success btn-block" ng-click="makeOrder()">Make order</button>
+		</div>
+		
+		<div class="text-danger" ng-if="basket == '' || basket.items.length == 0">
+			There is no any item in the basket
+		</div>
+		
+		<div ng-include="'error'"></div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,289 @@
+@charset "UTF-8";
+
+body, .menu-item {
+	background-color: #F5F2F1;
+}
+
+.container {
+	padding: 20px !important;
+	background-color: white;
+}
+
+.sign-in-container {
+	max-width: 500px;
+}
+
+.custom-nav-link {
+	color: #f1f1f1;
+}
+
+.custom-nav-link:hover {
+	color: #D0D2D5;
+	background-color: #757575;
+}
+
+.custom-dropdown-toggle {
+	height: 60px;
+}
+
+@media (min-width: 768px) {
+	
+	.navbar {
+		height: 60px;
+	}
+	
+	.navbar-nav > li > a, .navbar-brand {
+	   	padding-top: 15px !important;
+	    padding-bottom: 0 !important;
+	    padding-left: 25px !important;
+	    padding-right: 25px !important;
+	    height: 60px;
+	}
+	
+}
+
+.nav-icon {
+	font-size: 30px;
+}
+
+.menu, .menu-hover {
+	display: none;
+	flex-direction: column;
+	flex-wrap: wrap;
+	position: absolute;
+	width: 400px;
+	max-height: 600px;
+	background-color: white;
+	z-index: 50;
+	box-shadow: 0px 0px 10px 5px #888888;
+	padding: 10px;
+	opacity: 0;
+	border-radius: 3px;
+}
+
+.menu-hover {
+	animation: show-menu .5s;
+	display: flex;
+	opacity: 1;
+}
+
+.menu-item {
+	display: block;
+	padding: 10px 0;
+}
+
+.menu-item > ul {
+	list-style-type: none;
+}
+
+.menu-link {
+	text-decoration: none;
+	color: black;
+}
+
+.menu-link:hover {
+	color: black;
+}
+
+@keyframes show-menu {
+	from {
+		display: none;
+		opacity: 0;
+	}
+	to {
+		display: flex;
+		opacity: 1;
+	}
+}
+
+.sign-up-container {
+	max-width: 700px;
+}
+
+.table-icon {
+	font-size: 25px;
+	cursor: pointer;
+}
+
+.table-catalogue > tbody > tr > th,
+.table-catalogue > tbody > tr > td {
+	width: 500px;
+	border: 1px solid #ced4da;
+	text-align: center;
+	font-size: 20px;
+}
+
+.warning-icon {
+	font-style: italic;
+	font-size: 20px;
+}
+
+.table-input {
+	border: none;
+	text-align: center;
+	text-align-last: center;
+	width: 100%;
+	outline: none;
+}
+
+.product-block {
+	height: 250px;
+	cursor: pointer;
+}
+
+.product-block:hover {
+	box-shadow: 0 0 20px 10px #888888;
+}
+
+.product-image {
+	max-width: 100px;
+	max-height: 200px;
+}
+
+.shopping-cart-icon {
+	font-size: 30px;
+	color: green;
+}
+
+.shopping-cart-icon:hover {
+	color: #00ff00;
+}
+
+.add-product-icon {
+	font-size: 35px;
+	color: blue;
+	cursor: pointer;
+}
+
+.add-product-icon:hover {
+	color: #173B95;
+}
+
+.price {
+	font-size: 28px;
+}
+
+.availability {
+	font-size: 10px;
+}
+
+#shopping-cart-amount {
+	display: block;
+	background-color: #FF2D00;
+	color: white;
+	margin-left: 30px;
+	margin-top: -40px;
+	border-radius: 10px;
+	padding: 1px 3px;
+	font-size: 10px;
+	text-align: center;
+}
+
+.row {
+	display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -ms-flex-wrap: wrap !important;
+    flex-wrap: wrap !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+}
+
+.hide-icon, .delete-product-icon {
+	font-size: 30px;
+	position: absolute;
+	top: 5px;
+}
+
+.hide-icon {
+	color: gray;
+}
+
+.hide-icon:hover {
+	color: black;
+}
+
+.delete-product-icon {
+	color: #ff8080;
+	right: 15px;
+}
+
+.delete-product-icon:hover {
+	color: red;
+}
+
+.warn-message {
+	color: #FFB600;
+}
+
+.basket-briefing {
+	font-size: 25px;
+	background-color: #E3F5FA;
+}
+
+.table-row:nth-child(even) {
+	background-color: #fff;
+}
+
+.table-row:nth-child(odd) {
+	background-color: #f5f5f5;
+}
+
+.table-row:hover {
+	background-color: #c7c7c7;
+	cursor: pointer;
+}
+
+.order-first-row-border {
+	border-style: solid;
+	border-width: 0;
+	border-right-width: 1px;
+	border-color: #8a837f;
+}
+
+.order-first-row-left-border {
+	border-style: solid;
+	border-left-width: 1px;
+	border-color: #8a837f;
+}
+
+.order-row-border {
+	border-style: dashed;
+	border-width: 0;
+	border-right-width: 1px;
+	border-color: #d6d6d6;
+}
+
+.table-order {
+	border-style: solid;
+	border-width: 0;
+	border-top-width: 1px;
+	border-color: #8a837f;
+}
+
+.order-row-right-border {
+	border-style: solid;
+	border-right-width: 1px;
+	border-color: #d6d6d6;
+}
+
+.table-row:last-child {
+	border-style: solid;
+	border-width: 0;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-color: #d6d6d6;
+}
+
+.table-row-first {
+	background-color: #514943;
+	color: white;
+	height: 50px;
+}
+
+.table-row {
+	border-style: solid;
+	border-width: 0;
+	border-left-width: 1px;
+	border-color: #d6d6d6;
+}

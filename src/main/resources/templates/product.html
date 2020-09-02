@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="scripts/angular.min.js"></script>
+	<script src="scripts/angular-cookies.min.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/popper.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/menu.js"></script>
+	<script src="scripts/script.js"></script>
+</head>
+<body ng-app="appliances">
+	<div ng-include="'navbar'"></div>
+	<div class="container" style="max-width: 900px" ng-controller="productController">
+		<div class="d-flex flex-column">
+			<h2 class="font-italic">{{ product.brand.name | uppercase }} {{  product.name }}</h2>
+			<br>
+			<div class="row border">
+				<div class="col-md-6 p-3">
+					<div class="d-flex justify-content-center">
+						<img alt="{{ product.name }}" src="/images/fridge.png">
+					</div>
+					<br><br><br>
+					<div class="d-flex justify-content-center" ng-if="!isAdmin">
+						<button class="btn btn-success" ng-if="product.amount > 0 && !isInBasket" ng-click="addToBasket(product.id, product.name)">
+							<span>Add to shopping cart</span>
+							<i class="fas fa-shopping-cart"></i>
+						</button>
+						<span class="text-success" ng-if="isInBasket">Product is already in shopping cart <i class="fas fa-check-circle"></i></span>
+						<span class="text-danger" ng-if="product.amount == 0">Product is not available</span>
+					</div>
+				</div>
+				<div class="col-md-6 p-3">
+					<h3 class="d-flex justify-content-center">Specifications</h3>
+					<table class="w-100 border" style="font-size: 20px">
+						<tbody>
+							<tr>
+								<td class="border p-3"><b>Name</b></td>
+								<td class="border p-3">{{ product.name }}</td>
+							</tr>
+							<tr>
+								<td class="border p-3"><b>Manufacturer</b></td>
+								<td class="border p-3">{{ product.brand.name }}</td>
+							</tr>
+							<tr>
+								<td class="border p-3"><b>Price</b></td>
+								<td class="border p-3">{{ product.price | currency }}</td>
+							</tr>
+							<tr>
+								<td class="border p-3"><b>Width</b></td>
+								<td class="border p-3">{{ product.width }} cm.</td>
+							</tr>
+							<tr>
+								<td class="border p-3"><b>Height</b></td>
+								<td class="border p-3">{{ product.height }} cm.</td>
+							</tr>
+							<tr>
+								<td class="border p-3"><b>Depth</b></td>
+								<td class="border p-3">{{ product.depth }} cm.</td>
+							</tr>
+							<tr>
+								<td class="border p-3"><b>Weight</b></td>
+								<td class="border p-3">{{ product.weight }} kg.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="basket-message">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+				
+					<div class="modal-header">
+						<h4 class="text-primary"><i class="fas fa-info-circle"></i> Shopping cart information</h4>
+						<button class="close" type="button" data-dismiss="modal">&times;</button>
+					</div>
+				
+					<div class="modal-body">
+						<p>You have just added the product <b>{{ actedProduct }}</b> to your shopping cart</p>
+						<div class="d-flex justify-content-between">
+							<button class="btn btn-secondary" data-dismiss="modal">Continue shopping</button>
+							<button class="btn btn-success" ng-click="initiateAction()">Move to shopping cart</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div ng-include="'error'"></div>
+	</div>
+</body>
+</html>

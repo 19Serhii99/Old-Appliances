@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Products</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="../styles/bootstrap.min.css">
+	<link rel="stylesheet" href="../styles/style.css">
+	<script src="../scripts/angular.min.js"></script>
+	<script src="../scripts/angular-cookies.min.js"></script>
+	<script src="../scripts/jquery.min.js"></script>
+	<script src="../scripts/popper.min.js"></script>
+	<script src="../scripts/bootstrap.min.js"></script>
+	<script src="../scripts/menu.js"></script>
+	<script src="../scripts/script.js"></script>
+</head>
+<body ng-app="appliances">
+	<div ng-include="'../navbar'"></div>
+	
+	<div class="row" ng-controller="productsController">
+	
+		<div class="col-lg-2" ng-hide="hideLeftSide">
+			<div class="d-flex flex-column p-3 justify-content-center">
+			
+				<h3 class="text-center">
+					<i class="fas fa-sort"></i>
+					Sort
+				</h3>
+				
+				<select class="form-control" ng-model="sort" ng-change="sorted()">
+					<option>None</option>
+					<option>Cheap – Expensive</option>
+					<option>Expensive – Cheap</option>
+					<option>New – Old</option>
+					<option>Old – New</option>
+				</select>
+				
+				<br>
+			
+				<h3 class="text-center">
+					<i class="fas fa-filter"></i>
+					Filter
+				</h3>
+				
+				<br>
+				
+				<h5><i class="fas fa-industry"></i>&nbsp;Brands</h5>
+				<div class="form-check" ng-repeat="pb in productBrands">
+					<input class="form-check-input" id="brand{{ pb.id }}" type="checkbox" ng-model="brandFilter[$index]" ng-change="brandFiltered($index, pb.id)">
+					<label for="brand{{ pb.id }}">{{ pb.name | uppercase }}</label>
+				</div>
+				
+				<br>
+				
+				<h5><i class="fas fa-dollar-sign"></i>&nbsp;Price</h5>
+				<div class="d-flex">
+					<input class="form-control" ng-model="minPrice">
+					<div class="d-flex align-items-center px-2">&#x2014;</div>
+					<input class="form-control" ng-model="maxPrice">
+				</div>
+				
+				<br>
+				
+				<div class="d-flex justify-content-between px-2">
+					<button class="btn btn-danger" ng-click="resetPrice()">Reset</button>
+					<button class="btn btn-success" ng-click="priceFiltered()">Apply</button>
+				</div>
+				
+				<br>
+				
+				<h5 ng-show="isAdmin"><i class="fas fa-cog"></i>&nbsp;Additional</h5>
+				<div class="form-check" ng-show="isAdmin">
+					<input class="form-check-input" id="visibility" type="checkbox" ng-model="showHidden" ng-change="hiddenFiltered()">
+					<label for="visibility">Show hidden</label>
+				</div>
+				
+				<br>
+				
+				<button class="btn btn-danger btn-block" ng-click="resetFilter()">Reset filter</button>
+				
+			</div>
+		</div>
+		
+		<div class="col">
+			 <div class="container" style="min-width: 100% !important; width: 100% !important;">
+				<div class="d-flex flex-column">
+				
+					<div class="d-flex justify-content-center">
+						<form class="d-flex" style="width: 600px; max-width: 600px">
+							<input class="form-control" type="search" placeholder="I'm looking for..." ng-model="searchValue">&nbsp;
+							<button class="btn btn-success" ng-click="search()">Search</button>
+						</form>
+					</div>
+					
+					<div class="d-flex">
+						<div class="d-flex mr-auto font-italic">
+							<h1>{{ categoryName }}</h1>
+							<span class="d-flex align-items-center" ng-if="products != null && products.length">&nbsp;({{ products.length }} items found)</span>
+						</div>
+						<a href="/add-product" ng-show="isAdmin">
+							<i class="fas fa-plus-square add-product-icon" data-toggle="tooltip" data-placement="left" title="Create new product"></i>
+						</a>
+					</div>
+					
+					<div class="row border-top"></div>
+					<div class="row border-left">
+						
+						<div class="col-lg-3 product-block border-bottom border-right" ng-repeat="product in products">
+							<div class="d-flex flex-column">
+								<i class="fas fa-eye-slash hide-icon" data-toggle="tooltip" title="Tuck away" ng-if="!product.hidden" ng-click="tuckAway(product.id, product.name)" ng-show="isAdmin"></i>
+								<i class="fas fa-eye hide-icon" data-toggle="tooltip" title="Make visible" ng-if="product.hidden" ng-click="makeVisible(product.id, product.name)" ng-show="isAdmin"></i>
+								<i class="fas fa-trash-alt delete-product-icon" data-toggle="tooltip" title="Remove" ng-click="remove(product.id, product.name)" ng-show="isAdmin"></i>
+								
+								<div class="py-2">
+									<div class="d-flex justify-content-center" style="height: 150px;" ng-click="openProduct(product.id)">
+										<img class="product-image" alt="{{ product.name }}" src="/images/fridge.png">
+									</div>
+									
+									<div ng-click="openProduct(product.id)"><b>{{ product.brand.name | uppercase }}</b> {{ product.name }}</div>
+									
+									<div class="d-flex">
+										<span class="price">{{ product.price | currency }}</span>
+										<i class="fas fa-shopping-cart ml-auto shopping-cart-icon" data-toggle="tooltip" title="Add to shopping cart"
+											ng-click="addToBasket(product.id, product.name)" ng-if="product.amount > 0 && !product.hidden && !product.ordered && !isAdmin"></i>
+										<i class="fas fa-check-circle ml-auto shopping-cart-icon" data-toggle="tooltip" title="Already in shopping cart" ng-if="product.ordered && !isAdmin"></i>
+									</div>
+									
+									<div class="text-success availability" ng-if="product.amount > 0">Available</div>
+									<div class="text-danger availability" ng-if="product.amount == 0">Not available</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="basket-message">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+				
+					<div class="modal-header">
+						<h4 class="text-primary"><i class="fas fa-info-circle"></i> Shopping cart information</h4>
+						<button class="close" type="button" data-dismiss="modal">&times;</button>
+					</div>
+				
+					<div class="modal-body">
+						<p>You have just added the product <b>{{ actedProduct }}</b> to your shopping cart</p>
+						<div class="d-flex justify-content-between">
+							<button class="btn btn-secondary" data-dismiss="modal">Continue shopping</button>
+							<button class="btn btn-success" ng-click="initiateAction()">Move to shopping cart</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="warning-message">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+				
+					<div class="modal-header">
+						<h4 class="warn-message"><i class="fas fa-exclamation-triangle"></i> Confirm action</h4>
+						<button class="close" type="button" data-dismiss="modal">&times;</button>
+					</div>
+				
+					<div class="modal-body">
+						<p>Are you sure you want to {{ action }} the product <b>{{ actedProduct }}</b>?</p>
+						<p class="font-italic">{{ actionDescription }}</p>
+						<div class="d-flex justify-content-between">
+							<button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+							<button class="btn btn-success" ng-click="initiateAction()">{{ buttonAction }}</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<div ng-include="'error'"></div>
+	</div>
+	
+</body>
+</html>

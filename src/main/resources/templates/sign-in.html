@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign-in</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="styles/bootstrap.min.css">
+	<link rel="stylesheet" href="styles/style.css">
+	<script src="scripts/angular.min.js"></script>
+	<script src="scripts/angular-cookies.min.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/popper.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/menu.js"></script>
+	<script src="scripts/script.js"></script>
+</head>
+<body ng-app="appliances">
+	<div ng-include="'navbar'"></div>
+	<div class="container sign-in-container" ng-controller="authController">
+		<div class="d-flex flex-column">
+			<h2 class="font-italic">Sign-in</h2>
+			<form ng-submit="signIn()">
+				<div class="form-group">
+					<label for="email">Enter your email *</label>
+					<input class="form-control" id="email" type="email" required ng-model="email">
+				</div>
+				<div class="form-group">
+					<label for="password">Enter your password *</label>
+					<input class="form-control" id="password" type="password" required ng-model="password">
+				</div>
+				<div ng-show="showErrorMessage">
+					<span class="text-danger font-italic">{{ message }}</span>
+					<br><br>
+				</div>
+				<button class="btn btn-primary btn-block">Sign In</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
