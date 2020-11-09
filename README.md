@@ -1,6 +1,6 @@
 # Old Household Appliances Store
 
-An old test project for Household Appliances Store.
+An old test project for Household Appliances Store. Technologies: MySQL, MongoDB, Spring Boot, REST, AngularJS, Bootstrap.
 
 The database structure for MySQL in the third normal form (3NF):
 
